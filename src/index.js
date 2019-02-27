@@ -1,12 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+// app.js
+import React from "react";
+import { render } from "react-dom";
+import Hello from "./Hello";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// On importe la classe `UserProvider`
+import UserProvider from "./store/UserProvider";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const styles = {
+  fontFamily: "sans-serif",
+  textAlign: "center"
+};
+
+const App = () => (
+  <div style={styles}>
+    {/* A noter qu'aucune propriété n'est passée au composant `Hello` */}
+    <Hello />
+  </div>
+);
+
+render(
+  /**
+   * On pourrait tout à fait ne wrapper que les composants qui
+   * nous intéressent, mais pour l'exemple, nous wrappons le bootstrap
+   * de notre app avec notre `UserProvider`
+   */
+  <UserProvider>
+    <App />
+  </UserProvider>,
+  document.getElementById("root")
+);
